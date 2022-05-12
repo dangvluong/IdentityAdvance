@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Security.Claims;
+
 namespace ExampleApp.Identity
 {
     public class AppUser
@@ -13,5 +15,8 @@ namespace ExampleApp.Identity
         public bool PhoneNumberConfirmed { get; set; }
         public string FavoriteFood { get; set; }
         public string Hobby { get; set; }
+        public IList<Claim> Claims { get; set; }
+        public string SecurityStamp { get; set; }
+
     }
 }

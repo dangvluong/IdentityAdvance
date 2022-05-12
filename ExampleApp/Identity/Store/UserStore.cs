@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
+
 namespace ExampleApp.Identity.Store
 {
     public partial class UserStore
@@ -31,8 +33,10 @@ namespace ExampleApp.Identity.Store
                     PhoneNumber = "123-4567",
                     PhoneNumberConfirmed = true,
                     FavoriteFood = customData[name].food,
-                    Hobby = customData[name].hobby
+                    Hobby = customData[name].hobby,
+                    SecurityStamp = "InitialStamp"
                 };
+                user.Claims = UsersAndClaims.UserData[user.UserName].Select(role => new Claim(ClaimTypes.Role, role)).ToList();
                 users.TryAdd(user.Id, user);
             }
         }

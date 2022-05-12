@@ -27,7 +27,11 @@ namespace ExampleApp.Pages.Store
             }
             else
             {
-                storeUser.UpdateFrom(user);
+                storeUser.UpdateFrom(user, out bool changed);
+                if (changed && UserManager.SupportsUserSecurityStamp)
+                {
+                    await UserManager.UpdateSecurityStampAsync(storeUser);
+                }
                 result = await UserManager.UpdateAsync(storeUser);
             }
             if (result.Succeeded)
